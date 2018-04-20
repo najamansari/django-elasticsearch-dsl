@@ -48,6 +48,17 @@ model_field_class_to_field_class = {
     models.URLField: StringField,
 }
 
+try:
+    from .fields import TextField, KeywordField
+    model_field_class_to_field_class[models.CharField] = TextField
+    model_field_class_to_field_class[models.EmailField] = TextField
+    model_field_class_to_field_class[models.FilePathField] = TextField
+    model_field_class_to_field_class[models.SlugField] = TextField
+    model_field_class_to_field_class[models.TextField] = TextField
+    model_field_class_to_field_class[models.URLField] = TextField
+    model_field_class_to_field_class[models.UUIDField] = KeywordField
+except ImportError:
+    pass
 
 class DocTypeMeta(DSLDocTypeMeta):
     def __new__(cls, name, bases, attrs):
